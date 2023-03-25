@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="2048-estilo.css">
+    <title>2048</title>
+    <!--Funções de estilo-->
+    <script>
+        function box(){
+            for(let id=0;id<16;id++){
+                let caixa=document.getElementById(id);
+                switch (caixa.innerHTML){
+                    case '':
+                        caixa.style.backgroundColor="#CCC1B2";
+                        break
+                    case '2':
+                        caixa.style.backgroundColor="#EEE4DA";
+                        caixa.style.color="#766F64";
+                        break    
+                    case '4':
+                        caixa.style.backgroundColor="#EDE0C7";
+                        caixa.style.color="#766F64";
+                        break
+                    case '8':
+                        caixa.style.backgroundColor="#F2B178";
+                        caixa.style.color="#FBF7F1";
+                        break
+                    case '16':
+                        caixa.style.backgroundColor="#F59662";
+                        caixa.style.color="#FBF7F1";
+                        break
+                    case '32':
+                        caixa.style.backgroundColor="#F57C5C";
+                        caixa.style.color="#FBF7F1";
+                        break
+                    case '64':
+                        caixa.style.backgroundColor="#FEF4EA";
+                        caixa.style.color="#FBF7F1";
+                        break
+                    case '128':
+                        caixa.style.backgroundColor="#FBF6EF";
+                        caixa.style.color="#FBF7F1";
+                        break
+                    case '256':
+                        caixa.style.backgroundColor="#EDCC5F";
+                        caixa.style.color="#FBF7F1";
+                        break
+                    case '512':
+                        caixa.style.backgroundColor="#ECC84F";
+                        caixa.style.color="#FBF7F1";
+                        break
+                    case '1024':
+                        caixa.style.backgroundColor="#F5B93B";
+                        caixa.style.color="#FBF7F1";
+                        break
+                    case '2048':
+                        caixa.style.backgroundColor="#29271B";
+                        caixa.style.color="#FBF7F1";
+                        break
+                }
+            }
+        }
+    </script>
+    <!--Funções de mecânicas de jogo-->
+    <script>
+        //iniciando o tabuleiro e randomizando inicio
+        function iniciarJogo(){
+            //inicializando valor de todas as caixas como vazia
+            var valor=""
+            for(let id=0;id<16;id++){
+                document.getElementById(id).innerHTML=valor;
+            }
+            //inicializando 2 caixas com valor 2
+            var id_inicial_1=Math.floor(Math.random() * 16)
+            var id_inicial_2=Math.floor(Math.random() * 16)
+            while(id_inicial_1==id_inicial_2){
+                id_inicial_2=Math.floor(Math.random() * 16)
+            }
+
+            document.getElementById(id_inicial_1).innerHTML=2
+            document.getElementById(id_inicial_2).innerHTML=2
+            box();
+        }
+        //Colocando nova peça no tabuleiro
+        function novoBloco(){
+            var novo_bloco=Math.floor(Math.random() * 16)
+            while(document.getElementById(novo_bloco).innerHTML!=""){
+                novo_bloco=Math.floor(Math.random() * 16)
+            }
+            document.getElementById(novo_bloco).innerHTML=2
+            box();
+        }
+        // Funções de ação de movimento do tabuleiro
+        /*function paraDireita(){
+            //declarando o vetor que controla o jogo
+            var matriz=[]
+            // iniciando matriz
+            for(let id=0;id<16;id++){
+                    matriz[id]=document.getElementById(id);
+                }
+
+            for(let i=0;i<matriz.length-1;i++){
+                if(matriz[i].innerHTML==matriz[i+1].innerHTML&&((i-3)%4)!=0){
+                    matriz[i+1].innerHTML=parseInt(matriz[i+1].innerHTML)*2;
+                    matriz[i].innerHTML="";
+                }
+            }
+            novoBloco()
+        }
+        function paraEsquerda(){
+            //declarando o vetor que controla o jogo
+            var matriz=[]
+            // iniciando matriz
+            for(let id=0;id<16;id++){
+                    matriz[id]=document.getElementById(id);
+                }
+            for(let i=matriz.length;i>0;i--){
+                if(matriz[i].innerHTML==matriz[i-1].innerHTML&&(i%4)!=0){
+                    matriz[i-1].innerHTML=parseInt(matriz[i-1].innerHTML)*2;
+                    matriz[i].innerHTML="";
+                }
+            }
+            novoBloco()
+        }
+        function paraCima(){
+            //declarando o vetor que controla o jogo
+            var matriz=[]
+            // iniciando matriz
+            for(let id=0;id<16;id++){
+                    matriz[id]=document.getElementById(id);
+                }
+            for(let i=matriz.length;i>3;i--){
+                if(matriz[i].innerHTML==matriz[i-4].innerHTML){
+                    matriz[i-4].innerHTML=parseInt(matriz[i-4].innerHTML)*2;
+                    matriz[i].innerHTML="";
+                }
+            }
+            novoBloco()
+        }
+        function paraBaixo(){
+            //declarando o vetor que controla o jogo
+            var matriz=[]
+            // iniciando matriz
+            for(let id=0;id<16;id++){
+                    matriz[id]=document.getElementById(id);
+                }
+            for(let i=0;i<12;i++){
+                if(matriz[i].innerHTML==matriz[i-1].innerHTML){
+                    matriz[i+4].innerHTML=parseInt(matriz[i+4].innerHTML)*2;
+                    matriz[i].innerHTML="";
+                }
+            }
+            novoBloco()
+        }*/
+
+    </script>
+    
+</head>
+<body>
+    <header>
+        <div class="header-titulo">2048</div>
+        <div class="pontuacao">
+            <p>Pontuação:</p>
+            <span id="pontuacao-atual">0</span>
+        </div>
+        <div class="pontuacao">
+            <p>Recorde:</p>
+            <span id="pontuacao-max">0</span>
+        </div>
+        
+        <button id="reiniciar" type="button" >Reiniciar</button>
+        
+        <button id="desfazer" type="button">Desfazer</button>
+    </header>
+    <main>
+        <p class="disclaimer">Essa página tem intuitos apenas educacionais</p>
+        <div class="box-principal">
+            <div class="box-singular" id="0"></div>
+            <div class="box-singular" id="1"></div>
+            <div class="box-singular" id="2"></div>
+            <div class="box-singular" id="3"></div>
+            <div class="box-singular" id="4"></div>
+            <div class="box-singular" id="5"></div>
+            <div class="box-singular" id="6"></div>
+            <div class="box-singular" id="7"></div>
+            <div class="box-singular" id="8"></div>
+            <div class="box-singular" id="9"></div>
+            <div class="box-singular" id="10"></div>
+            <div class="box-singular" id="11"></div>
+            <div class="box-singular" id="12"></div>
+            <div class="box-singular" id="13"></div>
+            <div class="box-singular" id="14"></div>
+            <div class="box-singular" id="15"></div>
+        </div>
+    </main>
+    <!--Chamando Funções-->
+    <script>
+        //botão de reiniciar
+        document.getElementById('reiniciar').addEventListener('click',iniciarJogo);
+        document.getElementById('desfazer').addEventListener('click',novoBloco);
+        //carregar o jogo quando a página carregar
+        window.addEventListener('load', iniciarJogo);
+        //implementando a mecânica de movimento
+        document.addEventListener('keydown', (event) => {
+            const matriz = [];
+            for (let row = 0; row < 4; row++) {
+            matriz[row] = []; 
+            for (let col = 0; col < 4; col++) {
+                matriz[row][col] = document.getElementById(4*row+col) 
+            }
+            }
+            if (event.key === 'ArrowUp') {
+                let check_valor_de_cima=true
+                for(col=3;col>-1;col--){
+                    for(row=3;row>0;row--){
+                        
+                        if(isNaN(parseInt(matriz[row][col].innerHTML))){
+                            matriz[row][col].innerHTML=""
+                        }
+                        if(matriz[row-1][col].innerHTML==""&&check_valor_de_cima){
+                            matriz[row-1][col].innerHTML=parseInt(matriz[row][col].innerHTML)
+                            matriz[row][col].innerHTML=""
+                            let check_valor_de_cima=true
+                        }
+                        else if(matriz[row-1][col].innerHTML==matriz[row][col].innerHTML&&check_valor_de_cima){
+                            matriz[row-1][col].innerHTML=parseInt(matriz[row][col].innerHTML)*2
+                            matriz[row][col].innerHTML=""
+                            let check_valor_de_cima=false
+                        }
+                        else if(check_valor_de_cima!=true&&matriz[row-1][col].innerHTML==matriz[row][col].innerHTML&&matriz[row-2][col].innerHTML==""){
+                            matriz[row-2][col].innerHTML=parseInt(matriz[row-1][col].innerHTML)
+                            matriz[row-1][col].innerHTML=parseInt(matriz[row][col].innerHTML)
+                            matriz[row][col].innerHTML=""
+                        }
+
+                        
+                    }
+               }
+               novoBloco(); 
+            } else if (event.key === 'ArrowDown') {
+                // A tecla de seta para baixo foi pressionada
+                
+            } else if (event.key === 'ArrowLeft') {
+                // A tecla de seta para a esquerda foi pressionada
+                
+            } else if (event.key === 'ArrowRight') {
+                // A tecla de seta para a direita foi pressionada
+                
+            }
+            });
+    </script>
+
+</body>
+</html>
