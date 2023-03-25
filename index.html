@@ -141,6 +141,7 @@
         window.addEventListener('load', iniciarJogo);
         //implementando a mecânica de movimento
         document.addEventListener('keydown', (event) => {
+            //iniciando matriz do tabuleiro
             const matriz = [];
             for (let row = 0; row < 4; row++) {
             matriz[row] = []; 
@@ -148,16 +149,31 @@
                 matriz[row][col] = document.getElementById(4*row+col) 
             }
             }
+            //função de movimento para cima
             if (event.key === 'ArrowUp') {
-                let check_valor_de_cima=true
-                for(col=3;col>-1;col--){
-                    for(row=3;row>0;row--){
-                        
+                for(col=0;col<4;col++){
+                    for(row=0;row<4;row++){
+                        //checando se o valor é um NaN e reiniciando-o como ""
                         if(isNaN(parseInt(matriz[row][col].innerHTML))){
                             matriz[row][col].innerHTML=""
                         }
-                        if(matriz[row-1][col].innerHTML==""&&check_valor_de_cima){
-                            matriz[row-1][col].innerHTML=parseInt(matriz[row][col].innerHTML)
+                        //Modificando espaços vazios para ficar no final da coluna
+                        let vazio=[]
+                        for(let i=0;i<4;i++){
+                            if(matriz[i][col].innerHTML!=""){
+                                vazio.push(matriz[i][col].innerHTML);
+                            }
+                        }
+                        while(vazio.length<4){
+                            vazio.push("")
+                        }
+                        for(let i=0;i<4;i++){
+                            matriz[i][col].innerHTML=vazio[i];
+                        }
+                        
+                        /*
+                        if(matriz[row+1][col].innerHTML==""){
+                            matriz[row][col].innerHTML=parseInt(matriz[row][col].innerHTML)
                             matriz[row][col].innerHTML=""
                             let check_valor_de_cima=true
                         }
@@ -170,7 +186,7 @@
                             matriz[row-2][col].innerHTML=parseInt(matriz[row-1][col].innerHTML)
                             matriz[row-1][col].innerHTML=parseInt(matriz[row][col].innerHTML)
                             matriz[row][col].innerHTML=""
-                        }
+                        }*/
 
                         
                     }
