@@ -92,69 +92,6 @@
             document.getElementById(novo_bloco).innerHTML=2
             box();
         }
-        // Funções de ação de movimento do tabuleiro
-        /*function paraDireita(){
-            //declarando o vetor que controla o jogo
-            var matriz=[]
-            // iniciando matriz
-            for(let id=0;id<16;id++){
-                    matriz[id]=document.getElementById(id);
-                }
-
-            for(let i=0;i<matriz.length-1;i++){
-                if(matriz[i].innerHTML==matriz[i+1].innerHTML&&((i-3)%4)!=0){
-                    matriz[i+1].innerHTML=parseInt(matriz[i+1].innerHTML)*2;
-                    matriz[i].innerHTML="";
-                }
-            }
-            novoBloco()
-        }
-        function paraEsquerda(){
-            //declarando o vetor que controla o jogo
-            var matriz=[]
-            // iniciando matriz
-            for(let id=0;id<16;id++){
-                    matriz[id]=document.getElementById(id);
-                }
-            for(let i=matriz.length;i>0;i--){
-                if(matriz[i].innerHTML==matriz[i-1].innerHTML&&(i%4)!=0){
-                    matriz[i-1].innerHTML=parseInt(matriz[i-1].innerHTML)*2;
-                    matriz[i].innerHTML="";
-                }
-            }
-            novoBloco()
-        }
-        function paraCima(){
-            //declarando o vetor que controla o jogo
-            var matriz=[]
-            // iniciando matriz
-            for(let id=0;id<16;id++){
-                    matriz[id]=document.getElementById(id);
-                }
-            for(let i=matriz.length;i>3;i--){
-                if(matriz[i].innerHTML==matriz[i-4].innerHTML){
-                    matriz[i-4].innerHTML=parseInt(matriz[i-4].innerHTML)*2;
-                    matriz[i].innerHTML="";
-                }
-            }
-            novoBloco()
-        }
-        function paraBaixo(){
-            //declarando o vetor que controla o jogo
-            var matriz=[]
-            // iniciando matriz
-            for(let id=0;id<16;id++){
-                    matriz[id]=document.getElementById(id);
-                }
-            for(let i=0;i<12;i++){
-                if(matriz[i].innerHTML==matriz[i-1].innerHTML){
-                    matriz[i+4].innerHTML=parseInt(matriz[i+4].innerHTML)*2;
-                    matriz[i].innerHTML="";
-                }
-            }
-            novoBloco()
-        }*/
-
     </script>
     
 </head>
