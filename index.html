@@ -167,10 +167,45 @@
                         while(vazio.length<4){
                             vazio.push("")
                         }
+                        //código de movimentação instavel
+                        let pos_movimento=[]
+                        let verificador_de_dobra=0
+                        for(let i=0;i<4;i++){
+                            if(vazio[i]==vazio[i+1]&&vazio[i]!=""&&verificador_de_dobra==0){
+                                pos_movimento.push(parseInt(vazio[i])*2)
+                                verificador_de_dobra=1
+                            }
+                            else{
+                                i++
+                                verificador_de_dobra=0
+                            }
+                        }
+                        while(pos_movimento.length<4){
+                            pos_movimento.push("")
+                        }
+                        //código instavél
+                        /*let dobrado = false;
+                        for (let i = 0; i < vazio.length; i++) {
+                            if (dobrado) {
+                                dobrado = false;
+                                continue;
+                            }
+                            if (vazio[i] === vazio[i+1]) {
+                                vazio[i] = parseInt(vazio[i]) * 2;
+                                vazio.splice(i+1, 1);
+                                vazio.push("");
+                                dobrado = true;
+                            }
+                        }*/
                         for(let i=0;i<4;i++){
                             matriz[i][col].innerHTML=vazio[i];
-                        }
-                        
+                        }/*
+                        for(let i=0;i<4;i++){
+                            if(matriz[i][col].innerHTML==matriz[i+1][col].innerHTML&&matriz[i][col].innerHTML!=""){
+                                matriz[i][col].innerHTML=parseInt(matriz[i][col].innerHTML)*2
+                                matriz[i+1][col].innerHTML=""
+                            }
+                        }*/
                         /*
                         if(matriz[row+1][col].innerHTML==""){
                             matriz[row][col].innerHTML=parseInt(matriz[row][col].innerHTML)
