@@ -168,11 +168,11 @@
         <div class="header-titulo">2048</div>
         <div class="pontuacao">
             <p>Pontuação:</p>
-            <span id="pontuacao-atual">0</span>
+            <span id="pontuacao_atual">0</span>
         </div>
         <div class="pontuacao">
             <p>Recorde:</p>
-            <span id="pontuacao-max">0</span>
+            <span id="pontuacao_max">0</span>
         </div>
         
         <button id="reiniciar" type="button" >Reiniciar</button>
@@ -319,7 +319,19 @@
                }
                novoBloco();          
             }
-            });
+            let pontuacao=0;
+                for(row=0;row<4;row++){
+                    for(col=0;col<4;col++){
+                        if(matriz[row][col].innerHTML===""){
+                            pontuacao+=0    
+                        } else{
+                            pontuacao+=parseInt(matriz[row][col].innerHTML)
+                        }
+                    }
+                }
+            console.log(pontuacao)
+            document.getElementById("pontuacao_atual").innerHTML=pontuacao
+        });
     </script>
 
 </body>
