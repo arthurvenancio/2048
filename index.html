@@ -106,6 +106,12 @@
         <script>
             //iniciando o tabuleiro e randomizando inicio
             function iniciarJogo(){
+                //Gravando pontuação máxima
+                if(parseInt(document.getElementById("pontuacao_atual").innerHTML)>parseInt(document.getElementById("pontuacao_max").innerHTML)){
+                    document.getElementById("pontuacao_max").innerHTML=document.getElementById("pontuacao_atual").innerHTML
+                }    
+                //Inicializando contador de pontuação
+                document.getElementById("pontuacao_atual").innerHTML=0
                 //inicializando valor de todas as caixas como vazia
                 var valor=""
                 for(let id=0;id<16;id++){
