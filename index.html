@@ -167,62 +167,35 @@
                         while(vazio.length<4){
                             vazio.push("")
                         }
-                        //código de movimentação instavel
-                        let pos_movimento=[]
-                        let verificador_de_dobra=0
-                        for(let i=0;i<4;i++){
-                            if(vazio[i]==vazio[i+1]&&vazio[i]!=""&&verificador_de_dobra==0){
-                                pos_movimento.push(parseInt(vazio[i])*2)
-                                verificador_de_dobra=1
+                        //Checagem de quantidade de dobras
+                        let dobra=0
+                        for(let i=vazio.length-1;i>=0;i--){
+                            for(let j=i;j>=0;j--){
+                                if(j==i){j--}
+                                else if(vazio[i]==vazio[j]&&vazio[i]!=""){
+                                    dobra+=1
+                                    j=0
+                                }
                             }
-                            else{
-                                i++
-                                verificador_de_dobra=0
+                        }
+                        //Soma dos pares e deixando o vetor com o tamanho da coluna
+                        let pos_movimento=[]
+                        for(let i=vazio.length-1;i>=0;i--){
+                            if(dobra>0 && vazio[i]==vazio[i-1] && vazio[i]!=""){
+                                pos_movimento.unshift(parseInt(vazio[i])*2);
+                                dobra--
+                                i--
+                            } else if(vazio[i]!=""){
+                                pos_movimento.unshift(parseInt(vazio[i]))
                             }
                         }
                         while(pos_movimento.length<4){
                             pos_movimento.push("")
                         }
-                        //código instavél
-                        /*let dobrado = false;
-                        for (let i = 0; i < vazio.length; i++) {
-                            if (dobrado) {
-                                dobrado = false;
-                                continue;
-                            }
-                            if (vazio[i] === vazio[i+1]) {
-                                vazio[i] = parseInt(vazio[i]) * 2;
-                                vazio.splice(i+1, 1);
-                                vazio.push("");
-                                dobrado = true;
-                            }
-                        }*/
+                        //código de movimentação instavel
                         for(let i=0;i<4;i++){
-                            matriz[i][col].innerHTML=vazio[i];
-                        }/*
-                        for(let i=0;i<4;i++){
-                            if(matriz[i][col].innerHTML==matriz[i+1][col].innerHTML&&matriz[i][col].innerHTML!=""){
-                                matriz[i][col].innerHTML=parseInt(matriz[i][col].innerHTML)*2
-                                matriz[i+1][col].innerHTML=""
-                            }
-                        }*/
-                        /*
-                        if(matriz[row+1][col].innerHTML==""){
-                            matriz[row][col].innerHTML=parseInt(matriz[row][col].innerHTML)
-                            matriz[row][col].innerHTML=""
-                            let check_valor_de_cima=true
+                            matriz[i][col].innerHTML=pos_movimento[i];
                         }
-                        else if(matriz[row-1][col].innerHTML==matriz[row][col].innerHTML&&check_valor_de_cima){
-                            matriz[row-1][col].innerHTML=parseInt(matriz[row][col].innerHTML)*2
-                            matriz[row][col].innerHTML=""
-                            let check_valor_de_cima=false
-                        }
-                        else if(check_valor_de_cima!=true&&matriz[row-1][col].innerHTML==matriz[row][col].innerHTML&&matriz[row-2][col].innerHTML==""){
-                            matriz[row-2][col].innerHTML=parseInt(matriz[row-1][col].innerHTML)
-                            matriz[row-1][col].innerHTML=parseInt(matriz[row][col].innerHTML)
-                            matriz[row][col].innerHTML=""
-                        }*/
-
                         
                     }
                }
