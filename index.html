@@ -200,27 +200,7 @@
                         }
                         //Checagem de quantidade de dobras
                         let movimento=[]
-                        for(let i=0;i<4;i++){
-                            if(vazio[i]==""){
-                                movimento.push(movimento[i]);
-                                continue
-                            }
-                            if(i=0 && vazio[i]==vazio[i+1]){
-                                movimento.unshift(vazio[i]*2);
-                                continue
-                            }
-                            if(i>0 && vazio[i]==vazio[i+1] && vazio[i]!=vazio[i-1]){
-                                movimento.unshift(vazio[i]*2);
-                                continue
-                            }
-                            if(i>0 && vazio[i]==vazio[i+1] && vazio[i]==vazio[i-1]){
-                                movimento.unshift(vazio[i]);
-                                continue
-                            }
-                        }
-                        while(movimento.length<4){
-                            movimento.push("")
-                        }
+                        movimento=somarAdjacente(vazio)
                         //código de movimentação instavel
                         for(let i=0;i<4;i++){
                             matriz[i][col].innerHTML=movimento[i];
