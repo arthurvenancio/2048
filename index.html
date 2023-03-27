@@ -6,161 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="2048-estilo.css">
     <title>2048</title>
-    <!--Funções de estilo-->
-    <script>
-        function box(){
-            for(let id=0;id<16;id++){
-                let caixa=document.getElementById(id);
-                switch (caixa.innerHTML){
-                    case '':
-                        caixa.style.backgroundColor="#CCC1B2";
-                        break
-                    case '2':
-                        caixa.style.backgroundColor="#EEE4DA";
-                        caixa.style.color="#766F64";
-                        break    
-                    case '4':
-                        caixa.style.backgroundColor="#EDE0C7";
-                        caixa.style.color="#766F64";
-                        break
-                    case '8':
-                        caixa.style.backgroundColor="#F2B178";
-                        caixa.style.color="#FBF7F1";
-                        break
-                    case '16':
-                        caixa.style.backgroundColor="#F59662";
-                        caixa.style.color="#FBF7F1";
-                        break
-                    case '32':
-                        caixa.style.backgroundColor="#F57C5C";
-                        caixa.style.color="#FBF7F1";
-                        break
-                    case '64':
-                        caixa.style.backgroundColor="#FEF4EA";
-                        caixa.style.color="#FBF7F1";
-                        break
-                    case '128':
-                        caixa.style.backgroundColor="#FBF6EF";
-                        caixa.style.color="#FBF7F1";
-                        break
-                    case '256':
-                        caixa.style.backgroundColor="#EDCC5F";
-                        caixa.style.color="#FBF7F1";
-                        break
-                    case '512':
-                        caixa.style.backgroundColor="#ECC84F";
-                        caixa.style.color="#FBF7F1";
-                        break
-                    case '1024':
-                        caixa.style.backgroundColor="#F5B93B";
-                        caixa.style.color="#FBF7F1";
-                        break
-                    case '2048':
-                        caixa.style.backgroundColor="#29271B";
-                        caixa.style.color="#FBF7F1";
-                        break
-                }
-            }
-        }
-    </script>
-    <!--Funções de mecânicas de jogo-->
-    <script>
-        //iniciando o tabuleiro e randomizando inicio
-        function iniciarJogo(){
-            //inicializando valor de todas as caixas como vazia
-            var valor=""
-            for(let id=0;id<16;id++){
-                document.getElementById(id).innerHTML=valor;
-            }
-            //inicializando 2 caixas com valor 2
-            var id_inicial_1=Math.floor(Math.random() * 16)
-            var id_inicial_2=Math.floor(Math.random() * 16)
-            while(id_inicial_1==id_inicial_2){
-                id_inicial_2=Math.floor(Math.random() * 16)
-            }
-
-            document.getElementById(id_inicial_1).innerHTML=2
-            document.getElementById(id_inicial_2).innerHTML=2
-            box();
-        }
-        //Colocando nova peça no tabuleiro
-        function novoBloco(){
-            var novo_bloco=Math.floor(Math.random() * 16)
-            while(document.getElementById(novo_bloco).innerHTML!=""){
-                novo_bloco=Math.floor(Math.random() * 16)
-            }
-            document.getElementById(novo_bloco).innerHTML=2
-            box();
-        }
-        //função para somar os adjacentes para os movimentos positivos
-        function somarAdjacente(arr){
-            const resultado=[];
-            let jaSomados=false;
-
-            for(let i=0;i<arr.length;i++){
-                if(i===arr.length-1 && !jaSomados){
-                    resultado.push(arr[i]===""? 0:arr[i]);
-                } else if(arr[i]!==""){
-                    if(arr[i]===arr[i+1] && !jaSomados){
-                        resultado.push(parseInt(arr[i]*2));
-                        jaSomados=true;
-                    } else if(i>0 && jaSomados){
-                        jaSomados=false;
-                        continue
-                    } 
-                    else {
-                        resultado.push(arr[i]);
-                        jaSomados=false;
-                    }
-                } else {
-                    resultado.push(0);
-                }
-            }
-            
-            
-            while(resultado.length<4){resultado.push(0)}
-            for(let i=0;i<resultado.length;i++){
-                if(resultado[i]===0){resultado[i]=""}
-            }
-            return resultado
-        }
-        //função para somar os adjacentes para os movimentos negativos
-        function somarAoContrario(arr){
-            const resultado=[];
-            let jaSomados=false;
-
-            for(let i=arr.length-1;i>=0;i--){
-                if(i===0 && !jaSomados){
-                    resultado.unshift(arr[i]===""? 0:arr[i]);
-                } else if(arr[i]!==""){
-                    if(arr[i]===arr[i-1] && !jaSomados){
-                        resultado.unshift(parseInt(arr[i]*2));
-                        jaSomados=true;
-                    } else if(i>0 && jaSomados){
-                        jaSomados=false;
-                        continue
-                    } 
-                    else {
-                        resultado.unshift(arr[i]);
-                        jaSomados=false;
-                    }
-                } else {
-                    resultado.unshift(0);
-                }
-            }
-            
-            
-            while(resultado.length<4){
-                resultado.unshift(0)
-            }
-            for(let i=0;i<resultado.length;i++){
-                if(resultado[i]===0){
-                    resultado[i]=""
-                }
-            }
-            return resultado
-        }
-    </script>
     
 </head>
 <body>
@@ -200,6 +45,161 @@
             <div class="box-singular" id="15"></div>
         </div>
     </main>
+        <!--Funções de estilo-->
+        <script>
+            function box(){
+                for(let id=0;id<16;id++){
+                    let caixa=document.getElementById(id);
+                    switch (caixa.innerHTML){
+                        case '':
+                            caixa.style.backgroundColor="#CCC1B2";
+                            break
+                        case '2':
+                            caixa.style.backgroundColor="#EEE4DA";
+                            caixa.style.color="#766F64";
+                            break    
+                        case '4':
+                            caixa.style.backgroundColor="#EDE0C7";
+                            caixa.style.color="#766F64";
+                            break
+                        case '8':
+                            caixa.style.backgroundColor="#F2B178";
+                            caixa.style.color="#FBF7F1";
+                            break
+                        case '16':
+                            caixa.style.backgroundColor="#F59662";
+                            caixa.style.color="#FBF7F1";
+                            break
+                        case '32':
+                            caixa.style.backgroundColor="#F57C5C";
+                            caixa.style.color="#FBF7F1";
+                            break
+                        case '64':
+                            caixa.style.backgroundColor="#FEF4EA";
+                            caixa.style.color="#FBF7F1";
+                            break
+                        case '128':
+                            caixa.style.backgroundColor="#FBF6EF";
+                            caixa.style.color="#FBF7F1";
+                            break
+                        case '256':
+                            caixa.style.backgroundColor="#EDCC5F";
+                            caixa.style.color="#FBF7F1";
+                            break
+                        case '512':
+                            caixa.style.backgroundColor="#ECC84F";
+                            caixa.style.color="#FBF7F1";
+                            break
+                        case '1024':
+                            caixa.style.backgroundColor="#F5B93B";
+                            caixa.style.color="#FBF7F1";
+                            break
+                        case '2048':
+                            caixa.style.backgroundColor="#29271B";
+                            caixa.style.color="#FBF7F1";
+                            break
+                    }
+                }
+            }
+        </script>
+        <!--Funções de mecânicas de jogo-->
+        <script>
+            //iniciando o tabuleiro e randomizando inicio
+            function iniciarJogo(){
+                //inicializando valor de todas as caixas como vazia
+                var valor=""
+                for(let id=0;id<16;id++){
+                    document.getElementById(id).innerHTML=valor;
+                }
+                //inicializando 2 caixas com valor 2
+                var id_inicial_1=Math.floor(Math.random() * 16)
+                var id_inicial_2=Math.floor(Math.random() * 16)
+                while(id_inicial_1==id_inicial_2){
+                    id_inicial_2=Math.floor(Math.random() * 16)
+                }
+    
+                document.getElementById(id_inicial_1).innerHTML=2
+                document.getElementById(id_inicial_2).innerHTML=2
+                box();
+            }
+            //Colocando nova peça no tabuleiro
+            function novoBloco(){
+                var novo_bloco=Math.floor(Math.random() * 16)
+                while(document.getElementById(novo_bloco).innerHTML!=""){
+                    novo_bloco=Math.floor(Math.random() * 16)
+                }
+                document.getElementById(novo_bloco).innerHTML=2
+                box();
+            }
+            //função para somar os adjacentes para os movimentos positivos
+            function somarAdjacente(arr){
+                const resultado=[];
+                let jaSomados=false;
+    
+                for(let i=0;i<arr.length;i++){
+                    if(i===arr.length-1 && !jaSomados){
+                        resultado.push(arr[i]===""? 0:arr[i]);
+                    } else if(arr[i]!==""){
+                        if(arr[i]===arr[i+1] && !jaSomados){
+                            resultado.push(parseInt(arr[i]*2));
+                            jaSomados=true;
+                        } else if(i>0 && jaSomados){
+                            jaSomados=false;
+                            continue
+                        } 
+                        else {
+                            resultado.push(arr[i]);
+                            jaSomados=false;
+                        }
+                    } else {
+                        resultado.push(0);
+                    }
+                }
+                
+                
+                while(resultado.length<4){resultado.push(0)}
+                for(let i=0;i<resultado.length;i++){
+                    if(resultado[i]===0){resultado[i]=""}
+                }
+                return resultado
+            }
+            //função para somar os adjacentes para os movimentos negativos
+            function somarAoContrario(arr){
+                const resultado=[];
+                let jaSomados=false;
+    
+                for(let i=arr.length-1;i>=0;i--){
+                    if(i===0 && !jaSomados){
+                        resultado.unshift(arr[i]===""? 0:arr[i]);
+                    } else if(arr[i]!==""){
+                        if(arr[i]===arr[i-1] && !jaSomados){
+                            resultado.unshift(parseInt(arr[i]*2));
+                            jaSomados=true;
+                        } else if(i>0 && jaSomados){
+                            jaSomados=false;
+                            continue
+                        } 
+                        else {
+                            resultado.unshift(arr[i]);
+                            jaSomados=false;
+                        }
+                    } else {
+                        resultado.unshift(0);
+                    }
+                }
+                
+                
+                while(resultado.length<4){
+                    resultado.unshift(0)
+                }
+                for(let i=0;i<resultado.length;i++){
+                    if(resultado[i]===0){
+                        resultado[i]=""
+                    }
+                }
+                return resultado
+            }
+        </script>
     <!--Chamando Funções-->
     <script>
         //botão de reiniciar
