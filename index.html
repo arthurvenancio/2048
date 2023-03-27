@@ -178,18 +178,15 @@
             matriz[row] = []; 
             for (let col = 0; col < 4; col++) {
                 matriz[row][col] = document.getElementById(4*row+col) 
+                //checando se o valor é um NaN e reiniciando-o como ""
+                if(isNaN(parseInt(matriz[row][col].innerHTML))){
+                            matriz[row][col].innerHTML=""
+                        }
             }
             }
             //função de movimento para cima
             if (event.key === 'ArrowUp') {
                 for(col=0;col<4;col++){
-                    for(row=0;row<4;row++){
-                        //checando se o valor é um NaN e reiniciando-o como ""
-                        if(isNaN(parseInt(matriz[row][col].innerHTML))){
-                            matriz[row][col].innerHTML=""
-                        }
-                    
-                    }
                     //Modificando espaços vazios para ficar no final da coluna
                     let vazio=[]
                         for(let i=0;i<4;i++){
