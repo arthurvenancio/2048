@@ -174,16 +174,20 @@
         document.addEventListener('keydown', (event) => {
             //iniciando matriz do tabuleiro
             const matriz = [];
+            
             for (let row = 0; row < 4; row++) {
-            matriz[row] = []; 
-            for (let col = 0; col < 4; col++) {
-                matriz[row][col] = document.getElementById(4*row+col) 
-                //checando se o valor é um NaN e reiniciando-o como ""
-                if(isNaN(parseInt(matriz[row][col].innerHTML))){
-                            matriz[row][col].innerHTML=""
-                        }
+                matriz[row] = []; 
+                for (let col = 0; col < 4; col++) {
+                    
+                    matriz[row][col] = document.getElementById(4*row+col) 
+                    
+                    //checando se o valor é um NaN e reiniciando-o como ""
+                    if(isNaN(parseInt(matriz[row][col].innerHTML))){
+                                matriz[row][col].innerHTML=""
+                            }
+                }
             }
-            }
+           
             //função de movimento para cima
             if (event.key === 'ArrowUp') {
                 for(col=0;col<4;col++){
@@ -198,26 +202,67 @@
                             vazio.push("")
                         }
                     
-                    //Checagem de quantidade de dobras
+                    //Checagem de soma de blocos
                     let movimento=[]
-                        console.log('essa é a coluna '+(col+1))
-                        console.log(vazio)
                         movimento=somarAdjacente(vazio)
-                        console.log(vazio)
+
                         //código de movimentação instavel
                         for(let i=0;i<4;i++){
                             matriz[i][col].innerHTML=movimento[i];
                         }
                }
                novoBloco(); 
-            } else if (event.key === 'ArrowDown') {
-                // A tecla de seta para baixo foi pressionada
+            } 
+            else if (event.key === 'ArrowDown') {
+                for(col=0;col<4;col++){
+                    //Modificando espaços vazios para ficar no final da coluna
+                    let vazio=[]
+                        for(let i=0;i<4;i++){
+                            if(matriz[i][col].innerHTML!=""){
+                                vazio.push(matriz[i][col].innerHTML);
+                            }
+                        }
+                        while(vazio.length<4){
+                            vazio.push("")
+                        }
+                    //Invertendo array para somar os blocos na ordem certa
+                    vazio.reverse();
+                    //Checagem de soma de blocos
+                    let movimento=[]
+                        movimento=somarAdjacente(vazio)
+                        //invertendo novamente para colocar na posição correta
+                        movimento.reverse
+                        //código de movimentação instavel
+                        for(let i=0;i<4;i++){
+                            matriz[i][col].innerHTML=movimento[i];
+                        }
+               }
+               novoBloco(); 
                 
             } else if (event.key === 'ArrowLeft') {
-                // A tecla de seta para a esquerda foi pressionada
+                for(row=0;row<4;row++){
+                    //Modificando espaços vazios para ficar no final da coluna
+                    let vazio=[]
+                        for(let i=0;i<4;i++){
+                            if(matriz[row][i].innerHTML!=""){
+                                vazio.push(matriz[row][i].innerHTML);
+                            }
+                        }
+                        while(vazio.length<4){
+                            vazio.push("")
+                        }
+                    //Checagem de soma de blocos
+                    let movimento=[]
+                        movimento=somarAdjacente(vazio)
+
+                        //código de movimentação instavel
+                        for(let i=0;i<4;i++){
+                            matriz[row][i].innerHTML=movimento[i];
+                        }
+               }
+               novoBloco();
                 
-            } else if (event.key === 'ArrowRight') {
-                // A tecla de seta para a direita foi pressionada
+            } else if (event.key === 'ArrowRight') { 
                 
             }
             });
