@@ -188,8 +188,10 @@
                         if(isNaN(parseInt(matriz[row][col].innerHTML))){
                             matriz[row][col].innerHTML=""
                         }
-                        //Modificando espaços vazios para ficar no final da coluna
-                        let vazio=[]
+                    
+                    }
+                    //Modificando espaços vazios para ficar no final da coluna
+                    let vazio=[]
                         for(let i=0;i<4;i++){
                             if(matriz[i][col].innerHTML!=""){
                                 vazio.push(matriz[i][col].innerHTML);
@@ -198,15 +200,17 @@
                         while(vazio.length<4){
                             vazio.push("")
                         }
-                        //Checagem de quantidade de dobras
-                        let movimento=[]
+                    
+                    //Checagem de quantidade de dobras
+                    let movimento=[]
+                        console.log('essa é a coluna '+(col+1))
+                        console.log(vazio)
                         movimento=somarAdjacente(vazio)
+                        console.log(vazio)
                         //código de movimentação instavel
                         for(let i=0;i<4;i++){
                             matriz[i][col].innerHTML=movimento[i];
                         }
-                        
-                    }
                }
                novoBloco(); 
             } else if (event.key === 'ArrowDown') {
