@@ -92,6 +92,7 @@
             document.getElementById(novo_bloco).innerHTML=2
             box();
         }
+        //função para somar os adjacentes para os movimentos positivos
         function somarAdjacente(arr){
             const resultado=[];
             let jaSomados=false;
@@ -120,6 +121,42 @@
             while(resultado.length<4){resultado.push(0)}
             for(let i=0;i<resultado.length;i++){
                 if(resultado[i]===0){resultado[i]=""}
+            }
+            return resultado
+        }
+        //função para somar os adjacentes para os movimentos negativos
+        function somarAoContrario(arr){
+            const resultado=[];
+            let jaSomados=false;
+
+            for(let i=arr.length-1;i>=0;i--){
+                if(i===0 && !jaSomados){
+                    resultado.unshift(arr[i]===""? 0:arr[i]);
+                } else if(arr[i]!==""){
+                    if(arr[i]===arr[i-1] && !jaSomados){
+                        resultado.unshift(parseInt(arr[i]*2));
+                        jaSomados=true;
+                    } else if(i>0 && jaSomados){
+                        jaSomados=false;
+                        continue
+                    } 
+                    else {
+                        resultado.unshift(arr[i]);
+                        jaSomados=false;
+                    }
+                } else {
+                    resultado.unshift(0);
+                }
+            }
+            
+            
+            while(resultado.length<4){
+                resultado.unshift(0)
+            }
+            for(let i=0;i<resultado.length;i++){
+                if(resultado[i]===0){
+                    resultado[i]=""
+                }
             }
             return resultado
         }
@@ -223,15 +260,12 @@
                             }
                         }
                         while(vazio.length<4){
-                            vazio.push("")
+                            vazio.unshift("")
                         }
-                    //Invertendo array para somar os blocos na ordem certa
-                    vazio.reverse();
                     //Checagem de soma de blocos
                     let movimento=[]
-                        movimento=somarAdjacente(vazio)
-                        //invertendo novamente para colocar na posição correta
-                        movimento.reverse
+                        movimento=somarAoContrario(vazio)
+                        
                         //código de movimentação instavel
                         for(let i=0;i<4;i++){
                             matriz[i][col].innerHTML=movimento[i];
@@ -263,7 +297,27 @@
                novoBloco();
                 
             } else if (event.key === 'ArrowRight') { 
-                
+                for(row=0;row<4;row++){
+                    //Modificando espaços vazios para ficar no final da coluna
+                    let vazio=[]
+                        for(let i=0;i<4;i++){
+                            if(matriz[row][i].innerHTML!=""){
+                                vazio.push(matriz[row][i].innerHTML);
+                            }
+                        }
+                        while(vazio.length<4){
+                            vazio.unshift("")
+                        }
+                    //Checagem de soma de blocos
+                    let movimento=[]
+                        movimento=somarAoContrario(vazio)
+                        
+                        //código de movimentação instavel
+                        for(let i=0;i<4;i++){
+                            matriz[row][i].innerHTML=movimento[i];
+                        }
+               }
+               novoBloco();          
             }
             });
     </script>
