@@ -92,6 +92,37 @@
             document.getElementById(novo_bloco).innerHTML=2
             box();
         }
+        function somarAdjacente(arr){
+            const resultado=[];
+            let jaSomados=false;
+
+            for(let i=0;i<arr.length;i++){
+                if(i===arr.length-1 && !jaSomados){
+                    resultado.push(arr[i]===""? 0:arr[i]);
+                } else if(arr[i]!==""){
+                    if(arr[i]===arr[i+1] && !jaSomados){
+                        resultado.push(parseInt(arr[i]*2));
+                        jaSomados=true;
+                    } else if(i>0 && jaSomados){
+                        jaSomados=false;
+                        continue
+                    } 
+                    else {
+                        resultado.push(arr[i]);
+                        jaSomados=false;
+                    }
+                } else {
+                    resultado.push(0);
+                }
+            }
+            
+            
+            while(resultado.length<4){resultado.push(0)}
+            for(let i=0;i<resultado.length;i++){
+                if(resultado[i]===0){resultado[i]=""}
+            }
+            return resultado
+        }
     </script>
     
 </head>
@@ -168,33 +199,31 @@
                             vazio.push("")
                         }
                         //Checagem de quantidade de dobras
-                        let dobra=0
-                        for(let i=vazio.length-1;i>=0;i--){
-                            for(let j=i;j>=0;j--){
-                                if(j==i){j--}
-                                else if(vazio[i]==vazio[j]&&vazio[i]!=""){
-                                    dobra+=1
-                                    j=0
-                                }
+                        let movimento=[]
+                        for(let i=0;i<4;i++){
+                            if(vazio[i]==""){
+                                movimento.push(movimento[i]);
+                                continue
+                            }
+                            if(i=0 && vazio[i]==vazio[i+1]){
+                                movimento.unshift(vazio[i]*2);
+                                continue
+                            }
+                            if(i>0 && vazio[i]==vazio[i+1] && vazio[i]!=vazio[i-1]){
+                                movimento.unshift(vazio[i]*2);
+                                continue
+                            }
+                            if(i>0 && vazio[i]==vazio[i+1] && vazio[i]==vazio[i-1]){
+                                movimento.unshift(vazio[i]);
+                                continue
                             }
                         }
-                        //Soma dos pares e deixando o vetor com o tamanho da coluna
-                        let pos_movimento=[]
-                        for(let i=vazio.length-1;i>=0;i--){
-                            if(dobra>0 && vazio[i]==vazio[i-1] && vazio[i]!=""){
-                                pos_movimento.unshift(parseInt(vazio[i])*2);
-                                dobra--
-                                i--
-                            } else if(vazio[i]!=""){
-                                pos_movimento.unshift(parseInt(vazio[i]))
-                            }
-                        }
-                        while(pos_movimento.length<4){
-                            pos_movimento.push("")
+                        while(movimento.length<4){
+                            movimento.push("")
                         }
                         //código de movimentação instavel
                         for(let i=0;i<4;i++){
-                            matriz[i][col].innerHTML=pos_movimento[i];
+                            matriz[i][col].innerHTML=movimento[i];
                         }
                         
                     }
