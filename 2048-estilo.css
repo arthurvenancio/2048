@@ -4,7 +4,7 @@
     --gap:0.5em;
     --div:18.5em;
     --header:20em;
-    --font-botao:2em;
+    --font-botao:1.6em;
     --font-titulo:3em;
     --font-pontuacao:1.5em;
     --font-disclaimer:1.5em;
@@ -15,7 +15,7 @@ body{
 header{
     display: grid;
     grid-template-columns: repeat(3,1fr);
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 6.5em 4em;
     margin: 0 auto;
     width: 700px;
     gap: 10px;
@@ -101,4 +101,40 @@ A partir daqui é a área principal do jogo
     height: var(--altura-quadrado);
     border-radius: var(--borda);
     font-weight: bold;
+}
+/*
+Colocando responsividade para tela mobile grandes
+*/
+@media only screen and (max-width:724px) {
+    header{
+        width: 100%;
+        margin: 0 12px;
+        gap:5px
+    }
+    
+}
+/*
+Colocando responsividade para tela mobile pequenas
+*/
+@media only screen and (max-width:500px) {
+    :root{
+        --font-botao:1.3em;
+        --font-titulo:2em;
+        --font-pontuacao:1.2em;
+        --font-disclaimer:1em;
+        --borda:4px;
+    }
+    header{
+        width: 100%;
+        margin: 0 0;
+        gap:2px
+    }
+    .box-principal{
+        width: 100%;
+        margin: 0 auto;
+        gap:0.35em;
+        padding: 0.35em;
+        max-width: var(--div);
+    }
+    
 }
