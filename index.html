@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="2048-estilo.css">
     <title>2048</title>
-    
-</head>
+</head> 
 <body>
+    <div id="game_over" style="display: none;"></div>
     <header>
         <div class="header-titulo">2048</div>
         <div class="pontuacao">
@@ -337,12 +337,12 @@
                }          
             }
             let pontuacao=0;
-          //  const matriz_valores=[]
+            let check_espaco_vazio=0
                 for(row=0;row<4;row++){
                     for(col=0;col<4;col++){
-                       // matriz_valores[row][col]=matriz[row][col].innerHTML
                         if(matriz[row][col].innerHTML===""){
-                            pontuacao+=0    
+                            pontuacao+=0
+                            check_espaco_vazio=1    
                         } else{
                             pontuacao+=parseInt(matriz[row][col].innerHTML)
                         }
@@ -350,11 +350,18 @@
                 }
             document.getElementById("pontuacao_atual").innerHTML=pontuacao
             //Checando se deu Game Over ou se continua o jogo
-                if(false){
+            let game_over=parseInt(document.getElementById("game_over").innerHTML);
+            if(isNaN(game_over)){game_over=0}
+            console.log(check_espaco_vazio,game_over)
+                if(check_espaco_vazio==1){
+                    novoBloco();
+                    game_over=0;
+                } if(check_espaco_vazio==0 && game_over==1){
                     alert("Game Over! Sua pontuação foi: "+pontuacao)
                     iniciarJogo();
-                } else{
-                    novoBloco();
+                    game_over=0;
+                } if(game_over==0 && check_espaco_vazio==0){
+                    game_over=1
                 }
             
         });
