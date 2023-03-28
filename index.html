@@ -218,155 +218,201 @@
                 return true
             }
         </script>
-    <!--Chamando Funções-->
-    <script>
-        //botão de reiniciar
-        document.getElementById('reiniciar').addEventListener('click',iniciarJogo);
-        document.getElementById('desfazer').addEventListener('click',()=>{alert("Função Não Implementada")});
-        //carregar o jogo quando a página carregar
-        window.addEventListener('load', iniciarJogo);
-        //implementando a mecânica de movimento
-        document.addEventListener('keydown', (event) => {
-            //iniciando matriz do tabuleiro
-            const matriz = [];
-            //iniciando matriz para checagem de fim de jogo
-            //const matriz_check=[];
-            for (let row = 0; row < 4; row++) {
-                matriz[row] = []; 
-                for (let col = 0; col < 4; col++) {
-                    
-                    matriz[row][col] = document.getElementById(4*row+col) 
-                    //checando se o valor é um NaN e reiniciando-o como ""
-                    if(isNaN(parseInt(matriz[row][col].innerHTML))){
-                                matriz[row][col].innerHTML=""
-                            }
-                    //matriz_check[row][col]=matriz[row][col].innerHTML
+        <!--Funções mobile-->
+        <script>
+            let xBaixo = null;
+            let yBaixo = null;
+            //inicia as variáveis do toque na tela
+            function comecoToque(event) {
+                xBaixo = event.touches[0].clientX;
+                yBaixo = event.touches[0].clientY;
+            }
+            //Lógica do toque na tela
+            function movimentoToque(event) {
+                if (!xBaixo || !yBaixo) {
+                    return;
                 }
-            }
-           
-            //função de movimento para cima
-            if (event.key === 'ArrowUp') {
-                for(col=0;col<4;col++){
-                    //Modificando espaços vazios para ficar no final da coluna
-                    let vazio=[]
-                        for(let i=0;i<4;i++){
-                            if(matriz[i][col].innerHTML!=""){
-                                vazio.push(matriz[i][col].innerHTML);
-                            }
-                        }
-                        while(vazio.length<4){
-                            vazio.push("")
-                        }
-                    
-                    //Checagem de soma de blocos
-                    let movimento=[]
-                        movimento=somarAdjacente(vazio)
-
-                        //código de movimentação instavel
-                        for(let i=0;i<4;i++){
-                            matriz[i][col].innerHTML=movimento[i];
-                        }
-               }
-                
-            } 
-            else if (event.key === 'ArrowDown') {
-                for(col=0;col<4;col++){
-                    //Modificando espaços vazios para ficar no final da coluna
-                    let vazio=[]
-                        for(let i=0;i<4;i++){
-                            if(matriz[i][col].innerHTML!=""){
-                                vazio.push(matriz[i][col].innerHTML);
-                            }
-                        }
-                        while(vazio.length<4){
-                            vazio.unshift("")
-                        }
-                    //Checagem de soma de blocos
-                    let movimento=[]
-                        movimento=somarAoContrario(vazio)
-                        
-                        //código de movimentação instavel
-                        for(let i=0;i<4;i++){
-                            matriz[i][col].innerHTML=movimento[i];
-                        }
-               }
-                
-                
-            } else if (event.key === 'ArrowLeft') {
-                for(row=0;row<4;row++){
-                    //Modificando espaços vazios para ficar no final da coluna
-                    let vazio=[]
-                        for(let i=0;i<4;i++){
-                            if(matriz[row][i].innerHTML!=""){
-                                vazio.push(matriz[row][i].innerHTML);
-                            }
-                        }
-                        while(vazio.length<4){
-                            vazio.push("")
-                        }
-                    //Checagem de soma de blocos
-                    let movimento=[]
-                        movimento=somarAdjacente(vazio)
-
-                        //código de movimentação instavel
-                        for(let i=0;i<4;i++){
-                            matriz[row][i].innerHTML=movimento[i];
-                        }
-               }
-               
-                
-            } else if (event.key === 'ArrowRight') { 
-                for(row=0;row<4;row++){
-                    //Modificando espaços vazios para ficar no final da coluna
-                    let vazio=[]
-                        for(let i=0;i<4;i++){
-                            if(matriz[row][i].innerHTML!=""){
-                                vazio.push(matriz[row][i].innerHTML);
-                            }
-                        }
-                        while(vazio.length<4){
-                            vazio.unshift("")
-                        }
-                    //Checagem de soma de blocos
-                    let movimento=[]
-                        movimento=somarAoContrario(vazio)
-                        
-                        //código de movimentação instavel
-                        for(let i=0;i<4;i++){
-                            matriz[row][i].innerHTML=movimento[i];
-                        }
-               }          
-            }
-            let pontuacao=0;
-            let check_espaco_vazio=0
-                for(row=0;row<4;row++){
-                    for(col=0;col<4;col++){
-                        if(matriz[row][col].innerHTML===""){
-                            pontuacao+=0
-                            check_espaco_vazio=1    
-                        } else{
-                            pontuacao+=parseInt(matriz[row][col].innerHTML)
-                        }
+                //Grava o final do toque
+                let xUp = event.touches[0].clientX;
+                let yUp = event.touches[0].clientY;
+                //Contabiliza a diferença do começo e do final do toque
+                let xDiff = xBaixo - xUp;
+                let yDiff = yBaixo - yUp;
+                //Vê qual é a maior diferença, ou seja, a direção preferencial que o usuário deseja
+                if (Math.abs(xDiff) > Math.abs(yDiff)) {
+                    if (xDiff > 0) {
+                        const event = new KeyboardEvent('keydown', { key: 'ArrowLeft' });
+                        document.dispatchEvent(event)
+                    } else {
+                        const event = new KeyboardEvent('keydown', { key: 'ArrowRight' });
+                        document.dispatchEvent(event)
+                    }
+                } else {
+                    if (yDiff > 0) {
+                        const event = new KeyboardEvent('keydown', { key: 'ArrowUp' });
+                        document.dispatchEvent(event)
+                    } else {
+                        const event = new KeyboardEvent('keydown', { key: 'ArrowDown' });
+                        document.dispatchEvent(event)
                     }
                 }
-            document.getElementById("pontuacao_atual").innerHTML=pontuacao
-            //Checando se deu Game Over ou se continua o jogo
-            let game_over=parseInt(document.getElementById("game_over").innerHTML);
-            if(isNaN(game_over)){game_over=0}
-            console.log(check_espaco_vazio,game_over)
-                if(check_espaco_vazio==1){
-                    novoBloco();
-                    game_over=0;
-                } if(check_espaco_vazio==0 && game_over==1){
-                    alert("Game Over! Sua pontuação foi: "+pontuacao)
-                    iniciarJogo();
-                    game_over=0;
-                } if(game_over==0 && check_espaco_vazio==0){
-                    game_over=1
+                //Reinicia as variáveis
+                xBaixo = null;
+                yBaixo = null;
+            }
+            
+            document.addEventListener('touchstart', comecoToque, false);
+            document.addEventListener('touchmove', movimentoToque, false);
+        </script>
+        <!--Chamando Funções-->
+        <script>
+            //botão de reiniciar
+            document.getElementById('reiniciar').addEventListener('click',iniciarJogo);
+            document.getElementById('desfazer').addEventListener('click',()=>{alert("Função Não Implementada")});
+            //carregar o jogo quando a página carregar
+            window.addEventListener('load', iniciarJogo);
+            //implementando a mecânica de movimento
+            document.addEventListener('keydown', (event) => {
+                //iniciando matriz do tabuleiro
+                const matriz = [];
+                //iniciando matriz para checagem de fim de jogo
+                //const matriz_check=[];
+                for (let row = 0; row < 4; row++) {
+                    matriz[row] = []; 
+                    for (let col = 0; col < 4; col++) {
+                        
+                        matriz[row][col] = document.getElementById(4*row+col) 
+                        //checando se o valor é um NaN e reiniciando-o como ""
+                        if(isNaN(parseInt(matriz[row][col].innerHTML))){
+                                    matriz[row][col].innerHTML=""
+                                }
+                        //matriz_check[row][col]=matriz[row][col].innerHTML
+                    }
                 }
             
-        });
-    </script>
+                //função de movimento para cima
+                if (event.key === 'ArrowUp') {
+                    for(col=0;col<4;col++){
+                        //Modificando espaços vazios para ficar no final da coluna
+                        let vazio=[]
+                            for(let i=0;i<4;i++){
+                                if(matriz[i][col].innerHTML!=""){
+                                    vazio.push(matriz[i][col].innerHTML);
+                                }
+                            }
+                            while(vazio.length<4){
+                                vazio.push("")
+                            }
+                        
+                        //Checagem de soma de blocos
+                        let movimento=[]
+                            movimento=somarAdjacente(vazio)
+
+                            //código de movimentação instavel
+                            for(let i=0;i<4;i++){
+                                matriz[i][col].innerHTML=movimento[i];
+                            }
+                }
+                    
+                } 
+                else if (event.key === 'ArrowDown') {
+                    for(col=0;col<4;col++){
+                        //Modificando espaços vazios para ficar no final da coluna
+                        let vazio=[]
+                            for(let i=0;i<4;i++){
+                                if(matriz[i][col].innerHTML!=""){
+                                    vazio.push(matriz[i][col].innerHTML);
+                                }
+                            }
+                            while(vazio.length<4){
+                                vazio.unshift("")
+                            }
+                        //Checagem de soma de blocos
+                        let movimento=[]
+                            movimento=somarAoContrario(vazio)
+                            
+                            //código de movimentação instavel
+                            for(let i=0;i<4;i++){
+                                matriz[i][col].innerHTML=movimento[i];
+                            }
+                }
+                    
+                    
+                } else if (event.key === 'ArrowLeft') {
+                    for(row=0;row<4;row++){
+                        //Modificando espaços vazios para ficar no final da coluna
+                        let vazio=[]
+                            for(let i=0;i<4;i++){
+                                if(matriz[row][i].innerHTML!=""){
+                                    vazio.push(matriz[row][i].innerHTML);
+                                }
+                            }
+                            while(vazio.length<4){
+                                vazio.push("")
+                            }
+                        //Checagem de soma de blocos
+                        let movimento=[]
+                            movimento=somarAdjacente(vazio)
+
+                            //código de movimentação instavel
+                            for(let i=0;i<4;i++){
+                                matriz[row][i].innerHTML=movimento[i];
+                            }
+                }
+                
+                    
+                } else if (event.key === 'ArrowRight') { 
+                    for(row=0;row<4;row++){
+                        //Modificando espaços vazios para ficar no final da coluna
+                        let vazio=[]
+                            for(let i=0;i<4;i++){
+                                if(matriz[row][i].innerHTML!=""){
+                                    vazio.push(matriz[row][i].innerHTML);
+                                }
+                            }
+                            while(vazio.length<4){
+                                vazio.unshift("")
+                            }
+                        //Checagem de soma de blocos
+                        let movimento=[]
+                            movimento=somarAoContrario(vazio)
+                            
+                            //código de movimentação instavel
+                            for(let i=0;i<4;i++){
+                                matriz[row][i].innerHTML=movimento[i];
+                            }
+                }          
+                }
+                let pontuacao=0;
+                let check_espaco_vazio=0
+                    for(row=0;row<4;row++){
+                        for(col=0;col<4;col++){
+                            if(matriz[row][col].innerHTML===""){
+                                pontuacao+=0
+                                check_espaco_vazio=1    
+                            } else{
+                                pontuacao+=parseInt(matriz[row][col].innerHTML)
+                            }
+                        }
+                    }
+                document.getElementById("pontuacao_atual").innerHTML=pontuacao
+                //Checando se deu Game Over ou se continua o jogo
+                let game_over=parseInt(document.getElementById("game_over").innerHTML);
+                if(isNaN(game_over)){game_over=0}
+                console.log(check_espaco_vazio,game_over)
+                    if(check_espaco_vazio==1){
+                        novoBloco();
+                        game_over=0;
+                    } if(check_espaco_vazio==0 && game_over==1){
+                        alert("Game Over! Sua pontuação foi: "+pontuacao)
+                        iniciarJogo();
+                        game_over=0;
+                    } if(game_over==0 && check_espaco_vazio==0){
+                        game_over=1
+                    }
+                
+            });
+        </script>
 
 </body>
 </html>
