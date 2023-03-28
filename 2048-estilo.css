@@ -1,6 +1,13 @@
 :root{
     --borda:8px;
-    --altura-quadrado:3em;
+    --altura-quadrado:4em;
+    --gap:0.5em;
+    --div:18.5em;
+    --header:20em;
+    --font-botao:2em;
+    --font-titulo:3em;
+    --font-pontuacao:1.5em;
+    --font-disclaimer:1.5em;
 }
 body{
     background: #FBF8EF;
@@ -9,7 +16,8 @@ header{
     display: grid;
     grid-template-columns: repeat(3,1fr);
     grid-template-rows: 1fr 1fr;
-    margin: 0 200px;
+    margin: 0 auto;
+    width: 700px;
     gap: 10px;
 }
 .header-titulo{
@@ -21,7 +29,7 @@ header{
     
     color: white;
     font-weight: bold;
-    font-size: 3em;
+    font-size: var(--font-titulo);
 
     display: flex;
     align-items: center;
@@ -39,7 +47,7 @@ header{
     border-radius: var(--borda);
 
     color: white;
-    font-size: 1.5em;
+    font-size: var(--font-pontuacao);
 }
 .pontuacao p{
     color: #DAD2C8;
@@ -58,7 +66,7 @@ header button{
  
     color: white;
     font-weight: bold;
-    font-size: 2em;
+    font-size: var(--font-botao);
 
     box-shadow: none;
     outline: none;
@@ -67,7 +75,7 @@ header button{
     text-align: center;
     margin: 1em 0;
     color: #A49381;
-    font-size: 1.5em;
+    font-size: var(--font-disclaimer);
     font-weight: bold;
 }
 /*
@@ -75,14 +83,15 @@ A partir daqui é a área principal do jogo
 */
 .box-principal{
     background-color: #A49381;
-    margin: 0 200px;
-    padding: 0.5em;
+    margin: 0 auto;
+    width: var(--div);
+    padding: var(--gap);
     border-radius: var(--borda);
     
     display: grid;
     grid-template-columns: repeat(4,1fr);
     grid-template-rows: repeat(4,1fr);
-    gap: 0.5em;
+    gap: var(--gap);
 }
 .box-singular{
     display: flex;
