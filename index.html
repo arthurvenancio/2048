@@ -205,6 +205,16 @@
                 }
                 return resultado
             }
+            function comparandoMatriz(a,b){
+                for(let i=0;i<4;i++){
+                    for(let j=0;j<4;j++){
+                        if(a[i][j]!=b[i][j]){
+                            return false
+                        } 
+                    }
+                }
+                return true
+            }
         </script>
     <!--Chamando Funções-->
     <script>
@@ -217,17 +227,18 @@
         document.addEventListener('keydown', (event) => {
             //iniciando matriz do tabuleiro
             const matriz = [];
-            
+            //iniciando matriz para checagem de fim de jogo
+            //const matriz_check=[];
             for (let row = 0; row < 4; row++) {
                 matriz[row] = []; 
                 for (let col = 0; col < 4; col++) {
                     
                     matriz[row][col] = document.getElementById(4*row+col) 
-                    
                     //checando se o valor é um NaN e reiniciando-o como ""
                     if(isNaN(parseInt(matriz[row][col].innerHTML))){
                                 matriz[row][col].innerHTML=""
                             }
+                    //matriz_check[row][col]=matriz[row][col].innerHTML
                 }
             }
            
@@ -254,7 +265,7 @@
                             matriz[i][col].innerHTML=movimento[i];
                         }
                }
-               novoBloco(); 
+                
             } 
             else if (event.key === 'ArrowDown') {
                 for(col=0;col<4;col++){
@@ -277,7 +288,7 @@
                             matriz[i][col].innerHTML=movimento[i];
                         }
                }
-               novoBloco(); 
+                
                 
             } else if (event.key === 'ArrowLeft') {
                 for(row=0;row<4;row++){
@@ -300,7 +311,7 @@
                             matriz[row][i].innerHTML=movimento[i];
                         }
                }
-               novoBloco();
+               
                 
             } else if (event.key === 'ArrowRight') { 
                 for(row=0;row<4;row++){
@@ -322,12 +333,13 @@
                         for(let i=0;i<4;i++){
                             matriz[row][i].innerHTML=movimento[i];
                         }
-               }
-               novoBloco();          
+               }          
             }
             let pontuacao=0;
+          //  const matriz_valores=[]
                 for(row=0;row<4;row++){
                     for(col=0;col<4;col++){
+                       // matriz_valores[row][col]=matriz[row][col].innerHTML
                         if(matriz[row][col].innerHTML===""){
                             pontuacao+=0    
                         } else{
@@ -335,8 +347,15 @@
                         }
                     }
                 }
-            console.log(pontuacao)
             document.getElementById("pontuacao_atual").innerHTML=pontuacao
+            //Checando se deu Game Over ou se continua o jogo
+                if(false){
+                    alert("Game Over! Sua pontuação foi: "+pontuacao)
+                    iniciarJogo();
+                } else{
+                    novoBloco();
+                }
+            
         });
     </script>
 
