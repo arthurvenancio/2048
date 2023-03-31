@@ -200,7 +200,7 @@ Colocando responsividade para tela mobile pequenas
         --font-botao:1.3em;
         --font-titulo:2em;
         --font-pontuacao:1.2em;
-        --font-disclaimer:1em;
+        --font-disclaimer:.75em;
         --borda:4px;
     }
     header{
@@ -219,10 +219,11 @@ Colocando responsividade para tela mobile pequenas
         display: none;
     }
     .disclaimer{
-        margin: 0.5em 0;
+        margin: 0.5em auto;
     }
     .disclaimer:last-of-type{
         text-align: left;
+        font-size: 1em;
     }
     .quebra_linha{
         display: block;
