@@ -45,15 +45,16 @@
             <div class="box-singular" id="14"></div>
             <div class="box-singular" id="15"></div>
         </div>
-        <p class="disclaimer">Feita por Arthur Venâncio</p>
-        <div class="mobile">
-            <button id="ativar_controle">Ativar Setas</button>
-            <button class="seta" id="cima"><img src="" alt=""></button>
-            <button class="seta" id="baixo"><img src="" alt=""></button>
-            <button class="seta" id="esquerda"><img src="" alt=""></button>
-            <button class="seta" id="direita"><img src="" alt=""></button>
-        </div>
     </main>
+    <footer>
+        <p class="disclaimer" >Feita por <br class="quebra_linha">Arthur Venâncio</p>
+        <div class="mobile_setas">
+            <button class="seta" id="cima"><img src="seta 2048.svg" alt="Seta para cima"></button>
+            <button class="seta" id="esquerda"><img src="seta 2048.svg" alt="Seta para esquerda"></button>
+            <button class="seta" id="direita"><img src="seta 2048.svg" alt="Seta para direita"></button>
+            <button class="seta" id="baixo"><img src="seta 2048.svg" alt="Seta para baixo"></button>
+        </div>
+    </footer>
         <!--Funções de estilo-->
         <script>
             function box(){
@@ -306,9 +307,26 @@
                 xBaixo = null;
                 yBaixo = null;
             }
-            
+            // Disparando movimento de jogo através de swipe na tela
             document.addEventListener('touchstart', comecoToque, false);
             document.addEventListener('touchmove', movimentoToque, false);
+            // Disparando movimento de jogo através de setas de navegação
+            document.getElementById("baixo").addEventListener('click',()=>{
+                const event = new KeyboardEvent('keydown', { key: 'ArrowDown' });
+                document.dispatchEvent(event)
+                })
+            document.getElementById("cima").addEventListener('click',()=>{
+                const event = new KeyboardEvent('keydown', { key: 'ArrowUp' });
+                document.dispatchEvent(event)
+                })
+            document.getElementById("esquerda").addEventListener('click',()=>{
+                const event = new KeyboardEvent('keydown', { key: 'ArrowLeft' });
+                document.dispatchEvent(event)
+                })
+            document.getElementById("direita").addEventListener('click',()=>{
+                const event = new KeyboardEvent('keydown', { key: 'ArrowRight' });
+                document.dispatchEvent(event)
+                })
         </script>
         <!--Chamando Funções-->
         <script>

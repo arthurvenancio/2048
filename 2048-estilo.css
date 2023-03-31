@@ -8,6 +8,7 @@
     --font-titulo:3em;
     --font-pontuacao:1.5em;
     --font-disclaimer:1.5em;
+    --tamanho-seta:42px;
 }
 body{
     background: #FBF8EF;
@@ -79,6 +80,9 @@ header button{
     font-weight: bold;
     width: fit-content;
 }
+.quebra_linha{
+    display: none;
+}
 /*
 A partir daqui é a área principal do jogo
 */
@@ -103,27 +107,32 @@ A partir daqui é a área principal do jogo
     border-radius: var(--borda);
     font-weight: bold;
 }
-/*Botão somente para mobile*/
-.mobile{
-    display: flex;
-    justify-content: center;
+/*Setas de navegação para mobile*/
+.mobile_setas{
+    display: none;
 }
 
-#ativar_controle{
-    background: #F75E3E;
-    border-radius: var(--borda);
-    border-color: #F75E3E;
-
-    color: white;
-    font-size: var(--font-botao);
-    font-style: italic;
-
-    box-shadow: none;
-    outline: none;
-
-    justify-self: center;
+.seta{
+    background: transparent;
+    border: none;
+    height: var(--tamanho-seta);
+    padding: 4px;
 }
+.seta img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+#cima{
+    transform: rotate(270deg);
 
+}
+#baixo{
+    transform: rotate(90deg);
+}
+#esquerda{
+    transform: rotate(180deg);
+}
 /*
 Colocando responsividade para tela mobile grandes
 */
@@ -135,6 +144,52 @@ Colocando responsividade para tela mobile grandes
     }
     #instrucao{
         display: none;
+    }
+    .disclaimer:last-of-type{
+        text-align: left;
+        margin: 1em 0;
+    }
+    .quebra_linha{
+        display: block;
+    }
+    footer{
+        width: 350px;
+        margin: .5em auto;
+        display: grid;
+        grid-template-columns: 200px 150px;
+        grid-template-rows: 1fr;
+    }
+    .mobile_setas{
+        display: grid;
+        grid-template-columns: repeat(3,var(--tamanho-seta));
+        grid-template-rows: repeat(3,var(--tamanho-seta));
+
+        grid-row-start: 1;
+        grid-column-start: 2;
+
+        justify-content: end;
+    }
+    #cima{
+        grid-row-start: 1;
+        grid-column-start: 2;
+    }
+    #baixo{
+        grid-row-start: 2;
+        grid-column-start: 2;
+    }
+    #esquerda{
+        grid-row-start: 2;
+        grid-column-start: 1;
+    }
+    #direita{
+        grid-row-start: 2;
+        grid-column-start: 3;
+    }
+    #ativar_controle{
+        display: block;
+
+        grid-row-start: 1;
+        grid-column-start: 2;
     }
 }
 /*
@@ -163,5 +218,50 @@ Colocando responsividade para tela mobile pequenas
     #instrucao{
         display: none;
     }
-    
+    .disclaimer:last-of-type{
+        text-align: left;
+        margin: 1em 0;
+    }
+    .quebra_linha{
+        display: block;
+    }
+    footer{
+        width: 19em;
+        margin: .5em auto;
+        display: grid;
+        grid-template-columns: repeat(2,150px);
+        grid-template-rows: 1fr;
+    }
+    .mobile_setas{
+        display: grid;
+        grid-template-columns: repeat(3,var(--tamanho-seta));
+        grid-template-rows: repeat(3,var(--tamanho-seta));
+
+        grid-row-start: 1;
+        grid-column-start: 2;
+
+        justify-content: end;
+    }
+    #cima{
+        grid-row-start: 1;
+        grid-column-start: 2;
+    }
+    #baixo{
+        grid-row-start: 2;
+        grid-column-start: 2;
+    }
+    #esquerda{
+        grid-row-start: 2;
+        grid-column-start: 1;
+    }
+    #direita{
+        grid-row-start: 2;
+        grid-column-start: 3;
+    }
+    #ativar_controle{
+        display: block;
+
+        grid-row-start: 1;
+        grid-column-start: 2;
+    }   
 }
