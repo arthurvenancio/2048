@@ -73,10 +73,11 @@ header button{
 }
 .disclaimer{
     text-align: center;
-    margin: 1em 0;
+    margin: 1em auto;
     color: #A49381;
     font-size: var(--font-disclaimer);
     font-weight: bold;
+    width: fit-content;
 }
 /*
 A partir daqui é a área principal do jogo

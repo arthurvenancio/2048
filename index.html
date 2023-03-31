@@ -453,6 +453,21 @@
                     if(check_espaco_vazio==1 && jogada_valida){
                         novoBloco();
                     }
+                    let alerta=document.getElementById('instrucao').style
+                    if(!jogada_valida){
+                        alerta.color='#cc0000';
+                        alerta.border='2px solid #cc0000';
+                        alerta.padding='.5em';
+                        alerta.fontSize='1.75em';
+                        alerta.transition='font-size 400ms';
+                    }
+                    if(jogada_valida){
+                        alerta.color='#A49381';
+                        alerta.border='none'
+                        alerta.padding='0'
+                        alerta.fontSize='1.5em';
+                        alerta.transition='font-size 400ms';
+                    }
                 
             });
         </script>
