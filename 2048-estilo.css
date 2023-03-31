@@ -162,7 +162,7 @@ Colocando responsividade para tela mobile grandes
     .mobile_setas{
         display: grid;
         grid-template-columns: repeat(3,var(--tamanho-seta));
-        grid-template-rows: repeat(3,var(--tamanho-seta));
+        grid-template-rows: repeat(2,var(--tamanho-seta));
 
         grid-row-start: 1;
         grid-column-start: 2;
@@ -229,6 +229,7 @@ Colocando responsividade para tela mobile pequenas
     }
     footer{
         width: 19em;
+        height: 100px;
         margin: .5em auto;
         display: grid;
         grid-template-columns: repeat(2,150px);
@@ -237,7 +238,7 @@ Colocando responsividade para tela mobile pequenas
     .mobile_setas{
         display: grid;
         grid-template-columns: repeat(3,var(--tamanho-seta));
-        grid-template-rows: repeat(3,var(--tamanho-seta));
+        grid-template-rows: repeat(2,var(--tamanho-seta));
 
         grid-row-start: 1;
         grid-column-start: 2;
