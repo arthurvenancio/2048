@@ -26,7 +26,7 @@
     </header>
     <main>
         <p class="disclaimer">Essa página tem intuitos apenas educacionais</p>
-        <p class="disclaimer">Use as setas dos teclados para jogar</p>
+        <p class="disclaimer" id="instrucao">Use as setas dos teclados para jogar</p>
         <div class="box-principal">
             <div class="box-singular" id="0"></div>
             <div class="box-singular" id="1"></div>
@@ -217,6 +217,45 @@
                 }
                 return true
             }
+            //função para teste de fim de jogo
+            function matrizFimJogo(){
+                for(let i=0;i<16;i++){
+                    document.getElementById(i).innerHTML=i+1
+                }
+            }
+            //verificação de fim de jogo
+            function gameOver(){
+                let matriz=[]
+                for(let i=0;i<4;i++){
+                    matriz[i]=[]
+                    for(let j=0;j<4;j++){
+                        matriz[i][j]=document.getElementById(4*i+j).innerHTML
+                    }
+                }
+                for(let i=0;i<4;i++){
+                    for(let j=0;j<4;j++){
+                        if(i<3 && matriz[i+1][j]!=undefined){
+                            if((matriz[i][j]==matriz[i+1][j])){
+                                return true
+                            }
+                        }
+                        
+                        if (i>0 && matriz[i-1][j]!=undefined){
+                            if((matriz[i][j]==matriz[i-1][j])){
+                                return true
+                            }}
+                        if(j>0 && matriz[i][j-1]!=undefined){
+                            if((matriz[i][j]==matriz[i][j-1]) ){
+                                return true
+                        }}
+                        if(j<3 && matriz[i][j+1]!=undefined){
+                            if((matriz[i][j]==matriz[i][j+1])){
+                                return true
+                        }}
+                    }
+                }
+                return false
+            }
         </script>
         <!--Funções mobile-->
         <script>
@@ -268,15 +307,16 @@
         <script>
             //botão de reiniciar
             document.getElementById('reiniciar').addEventListener('click',iniciarJogo);
-            document.getElementById('desfazer').addEventListener('click',()=>{alert("Função Não Implementada")});
+            //botão de desfazer
+            document.getElementById('desfazer').addEventListener('click',matrizFimJogo);
             //carregar o jogo quando a página carregar
             window.addEventListener('load', iniciarJogo);
             //implementando a mecânica de movimento
             document.addEventListener('keydown', (event) => {
+                //iniciando verificador de que uma jogada valida
+                let jogada_valida=false;
                 //iniciando matriz do tabuleiro
                 const matriz = [];
-                //iniciando matriz para checagem de fim de jogo
-                //const matriz_check=[];
                 for (let row = 0; row < 4; row++) {
                     matriz[row] = []; 
                     for (let col = 0; col < 4; col++) {
@@ -286,12 +326,14 @@
                         if(isNaN(parseInt(matriz[row][col].innerHTML))){
                                     matriz[row][col].innerHTML=""
                                 }
-                        //matriz_check[row][col]=matriz[row][col].innerHTML
+                        
                     }
                 }
             
                 //função de movimento para cima
                 if (event.key === 'ArrowUp') {
+                    //validando jogada
+                    jogada_valida=true;
                     for(col=0;col<4;col++){
                         //Modificando espaços vazios para ficar no final da coluna
                         let vazio=[]
@@ -316,6 +358,8 @@
                     
                 } 
                 else if (event.key === 'ArrowDown') {
+                    //validando jogada
+                    jogada_valida=true;
                     for(col=0;col<4;col++){
                         //Modificando espaços vazios para ficar no final da coluna
                         let vazio=[]
@@ -339,6 +383,8 @@
                     
                     
                 } else if (event.key === 'ArrowLeft') {
+                    //validando jogada
+                    jogada_valida=true;
                     for(row=0;row<4;row++){
                         //Modificando espaços vazios para ficar no final da coluna
                         let vazio=[]
@@ -362,6 +408,8 @@
                 
                     
                 } else if (event.key === 'ArrowRight') { 
+                    //validando jogada
+                    jogada_valida=true;
                     for(row=0;row<4;row++){
                         //Modificando espaços vazios para ficar no final da coluna
                         let vazio=[]
@@ -397,18 +445,13 @@
                     }
                 document.getElementById("pontuacao_atual").innerHTML=pontuacao
                 //Checando se deu Game Over ou se continua o jogo
-                let game_over=parseInt(document.getElementById("game_over").innerHTML);
-                if(isNaN(game_over)){game_over=0}
-                console.log(check_espaco_vazio,game_over)
-                    if(check_espaco_vazio==1){
+                
+                    if(!gameOver()){
+                        alert(`Sua pontuação é ${pontuacao}`)
+                        iniciarJogo()                 
+                    }
+                    if(check_espaco_vazio==1 && jogada_valida){
                         novoBloco();
-                        game_over=0;
-                    } if(check_espaco_vazio==0 && game_over==1){
-                        alert("Game Over! Sua pontuação foi: "+pontuacao)
-                        iniciarJogo();
-                        game_over=0;
-                    } if(game_over==0 && check_espaco_vazio==0){
-                        game_over=1
                     }
                 
             });

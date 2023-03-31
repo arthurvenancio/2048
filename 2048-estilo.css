@@ -111,7 +111,9 @@ Colocando responsividade para tela mobile grandes
         margin: 0 12px;
         gap:5px
     }
-    
+    #instrucao{
+        display: none;
+    }
 }
 /*
 Colocando responsividade para tela mobile pequenas
@@ -135,6 +137,9 @@ Colocando responsividade para tela mobile pequenas
         gap:0.35em;
         padding: 0.35em;
         max-width: var(--div);
+    }
+    #instrucao{
+        display: none;
     }
     
 }
