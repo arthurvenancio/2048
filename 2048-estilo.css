@@ -218,9 +218,11 @@ Colocando responsividade para tela mobile pequenas
     #instrucao{
         display: none;
     }
+    .disclaimer{
+        margin: 0.5em 0;
+    }
     .disclaimer:last-of-type{
         text-align: left;
-        margin: 1em 0;
     }
     .quebra_linha{
         display: block;
