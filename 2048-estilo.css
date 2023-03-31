@@ -103,6 +103,27 @@ A partir daqui é a área principal do jogo
     border-radius: var(--borda);
     font-weight: bold;
 }
+/*Botão somente para mobile*/
+.mobile{
+    display: flex;
+    justify-content: center;
+}
+
+#ativar_controle{
+    background: #F75E3E;
+    border-radius: var(--borda);
+    border-color: #F75E3E;
+
+    color: white;
+    font-size: var(--font-botao);
+    font-style: italic;
+
+    box-shadow: none;
+    outline: none;
+
+    justify-self: center;
+}
+
 /*
 Colocando responsividade para tela mobile grandes
 */
