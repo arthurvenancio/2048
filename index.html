@@ -225,12 +225,6 @@
                 }
                 return true
             }
-            //função para teste de fim de jogo
-            function matrizFimJogo(){
-                for(let i=0;i<16;i++){
-                    document.getElementById(i).innerHTML=i+1
-                }
-            }
             //verificação de fim de jogo
             function gameOver(){
                 let matriz=[]
@@ -263,6 +257,18 @@
                     }
                 }
                 return false
+            }
+            function desfazer(anterior,atual){
+                if(anterior.length!=4){
+                    alert("Você não tem jogadas para retornar")
+                } else{
+                    for(let i=0;i<4;i++){
+                        for(let j=0;j<4;j++){
+                            atual[i][j].innerHTML=anterior[i][j]
+                        }
+                    }
+                }
+                box();
             }
         </script>
         <!--Funções mobile-->
@@ -330,10 +336,11 @@
         </script>
         <!--Chamando Funções-->
         <script>
+            //matriz prévia
+            var matriz_previa=[]
+            var matriz = [];
             //botão de reiniciar
             document.getElementById('reiniciar').addEventListener('click',iniciarJogo);
-            //botão de desfazer
-            document.getElementById('desfazer').addEventListener('click',matrizFimJogo);
             //carregar o jogo quando a página carregar
             window.addEventListener('load', iniciarJogo);
             //implementando a mecânica de movimento
@@ -341,12 +348,13 @@
                 //iniciando verificador de que uma jogada valida
                 let jogada_valida=false;
                 //iniciando matriz do tabuleiro
-                const matriz = [];
                 for (let row = 0; row < 4; row++) {
-                    matriz[row] = []; 
+                    matriz[row] = [];
+                    matriz_previa[row]=[] 
                     for (let col = 0; col < 4; col++) {
                         
-                        matriz[row][col] = document.getElementById(4*row+col) 
+                        matriz[row][col] = document.getElementById(4*row+col)
+                        matriz_previa[row][col] = matriz[row][col].innerHTML 
                         //checando se o valor é um NaN e reiniciando-o como ""
                         if(isNaN(parseInt(matriz[row][col].innerHTML))){
                                     matriz[row][col].innerHTML=""
@@ -495,6 +503,8 @@
                     }
                 
             });
+            //botão de desfazer
+            document.getElementById('desfazer').addEventListener('click',()=>{desfazer(matriz_previa,matriz)});
         </script>
 
 </body>
