@@ -13,16 +13,18 @@
 
 <p>Na parte superior da tela temos 2 botões destacados na cor laranja. O primeiro de nome "Reiniciar", reinicia o jogo. Já o segundo, "Desfazer", desfaz a última jogada feita pelo usuário</p>
 
+<img src="Imagens/HeaderTela inicial 2048.png" alt="Cabeçalho do Jogo" style="width:50%;">
+
 <h2>Versão Desktop</h2>
 <p>A versão desktop foi pensada para ser jogada através das setas do teclado como indicado na tela para o usuário.</p>
 
-insira imagem
+<img src="Imagens/Tela inicial 2048.png" alt="Tela inicial do jogo versão Desktop" style="width:30%;">
 
 <p>Caso o usuário não utilize as teclas indicadas, o aviso ficará mais enfatico.</p>
 
-insira imagem
+<img src="Imagens/Alerta Tecla Errada.png" alt="Alerta Tecla Errada" style="width:30%;">
 
 <h2>Versão Mobile</h2>
 <p>A versão mobile funciona de duas formas possíveis: a primeira é através de swipes na tela do aparelho de maneira convencional, porém os usuários teste reportaram dificuldade em utilizar o swipe para baixo já que esse comando naturalmente também é utilizado para recarregar a página, então foi implementado um segundo jeito de controle através de setas virtuais na tela para que o usuário possa usar de maneira mais simples</p>
 
-insira imagem
+<img src="Imagens/Mobile.png" alt="Tela inicial do jogo versão mobile" style="width:30%;">
